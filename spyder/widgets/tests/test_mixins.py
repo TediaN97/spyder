@@ -20,7 +20,6 @@ class BaseWidget(QPlainTextEdit, mixins.BaseEditMixin):
 # --- Fixtures
 # -----------------------------------------------------------------------------
 
-
 @pytest.fixture
 def mixinsbot(qtbot):
     widget = BaseWidget()
@@ -77,7 +76,6 @@ def test_get_current_object(mixinsbot, test_object):
             widget.move_cursor(move)
         current_word = get_current_object()
         current_word == match
-
 
 def test_get_current_word(mixinsbot):
     """
@@ -257,3 +255,42 @@ def test_get_number_with_words(mixinsbot):
     assert getm('Word') == 6
     # But the third (out of the three) which is [Ww]ord
     assert getm('Word', word=True) == 3
+    
+def test_find_text(mixinsbot):
+    text = ('Neviem uvidim zajtra')
+    qtbot, widget = mixinsbot
+    widget.setPlainText(text)
+    assert widget.find_text('uvidim') == True
+
+def test_is_cursor_on_first_line(mixinsbot):
+    text = ('Start is possible \n end is not possible')
+    qtbot, widget = mixinsbot
+    widget.setPlainText(text)
+    assert widget.is_cursor_on_first_line() == True
+    
+def test_is_cursor_on_last_line(mixinsbot):
+    text = ('Start is possible \n\n end is not possible\n')
+    qtbot, widget = mixinsbot
+    widget.setPlainText(text)
+    widget.set_cursor_position('eof')
+    assert widget.is_cursor_on_last_line() == True
+    
+def test_get_text(mixinsbot):
+    text = ('Start is possible \n\n end is not possible\n')
+    qtbot, widget = mixinsbot
+    widget.setPlainText(text)
+    assert widget.get_text('sol','eol') == 'Start is possible '
+    
+    
+    
+       
+    
+        
+    
+    
+
+
+
+
+    
+    

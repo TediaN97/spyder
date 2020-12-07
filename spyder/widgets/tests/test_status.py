@@ -21,9 +21,9 @@ from spyder.config import base
 from spyder.utils import conda
 from spyder.widgets.status import (BaseTimerStatus, CPUStatus,
                                    InterpreterStatus, MemoryStatus,
-                                   StatusBarWidget)
-import spyder.widgets.status
+                                   StatusBarWidget, ClockStatus)
 
+import spyder.widgets.status
 
 @pytest.fixture
 def status_bar(qtbot):
@@ -34,7 +34,6 @@ def status_bar(qtbot):
     statusbar = win.statusBar()
     qtbot.addWidget(win)
     return (win, statusbar)
-
 
 def test_status_bar_time_based_widgets(status_bar, qtbot):
     """Run StatusBarWidget."""
@@ -136,6 +135,7 @@ def test_status_bar_internal_interpreter_status(status_bar, qtbot, mocker):
     assert w.get_tooltip() == interpreter
     assert 'internal (Python 3.6.6)' == w._process_interpreter_env_info()
 
+    
 
 if __name__ == "__main__":
     pytest.main()

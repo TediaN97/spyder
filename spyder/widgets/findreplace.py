@@ -33,11 +33,11 @@ from spyder.widgets.comboboxes import PatternComboBox
 
 
 def is_position_sup(pos1, pos2):
-    """Return True is pos1 > pos2"""
+    """Return True if pos1 > pos2"""
     return pos1 > pos2
 
 def is_position_inf(pos1, pos2):
-    """Return True is pos1 < pos2"""
+    """Return True if pos1 < pos2"""
     return pos1 < pos2
 
 

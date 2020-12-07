@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+ # -*- coding: utf-8 -*-
 #
 # Copyright © Spyder Project Contributors
 # Licensed under the terms of the MIT License
@@ -15,7 +15,7 @@ import pytest
 
 # Local imports
 from spyder.widgets.arraybuilder import ArrayBuilderDialog
-
+from spyder.widgets.arraybuilder import ArrayInline
 
 # --- Fixtures
 # -----------------------------------------------------------------------------
@@ -43,6 +43,15 @@ def botarray(qtbot):
     return qtbot, dialog, dialog.array_widget
 
 
+@pytest.fixture
+def botinlineevent(qtbot):
+    dialog = ArrayInline(parent = None)
+    qtbot.addWidget(dialog)
+    dialog.show()
+    return qtbot, dialog
+
+
+
 # --- Tests
 # -----------------------------------------------------------------------------
 def test_array_inline_array(botinline):
@@ -51,7 +60,7 @@ def test_array_inline_array(botinline):
     qtbot.keyPress(widget, Qt.Key_Return)
     value = dialog.text()
     assert value == 'np.array([[1, 2, 3],\n          [4, 5, 6]])'
-
+ 
 
 def test_array_inline_matrix(botinline):
     qtbot, dialog, widget = botinline
@@ -184,7 +193,7 @@ def test_array_table_array_spaces_in_item(botarray):  # analysis:ignore
     qtbot.keyClick(widget, Qt.Key_Return, modifier=Qt.NoModifier)
     value = dialog.text()
     assert value == 'np.array([[0, 2, 3],\n          [0, 5, 6]])'
-
+    
 
 @pytest.mark.skipif(sys.platform == 'darwin', reason="It fails on macOS")
 def test_array_table_matrix_empty(botarray):  # analysis:ignore
@@ -192,3 +201,7 @@ def test_array_table_matrix_empty(botarray):  # analysis:ignore
     qtbot.keyClick(widget, Qt.Key_Return, modifier=Qt.NoModifier)
     value = dialog.text()
     assert value == ''
+
+
+
+

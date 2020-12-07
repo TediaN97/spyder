@@ -149,6 +149,7 @@ class ShortcutsSummaryDialog(QDialog):
         widget = QDesktopWidget()
         geometry = widget.availableGeometry(widget.primaryScreen())
         return geometry.width(), geometry.height()
+        
 
 
 def test():  # pragma: no cover

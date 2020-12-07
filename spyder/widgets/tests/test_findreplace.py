@@ -19,7 +19,7 @@ from qtpy.QtWidgets import QMessageBox, QPushButton
 # Local imports
 from spyder.plugins.editor.widgets.codeeditor import CodeEditor
 from spyder.widgets.findreplace import FindReplace
-
+import spyder.widgets.findreplace as findrep
 
 @pytest.fixture
 def findreplace_editor(qtbot, request):
@@ -81,6 +81,22 @@ def test_replace_selection(findreplace_editor, qtbot):
     assert editor.get_selected_text() == expected
     assert len(editor.get_selected_text()) == len(expected)
 
-
+def test_is_position_sup():
+    assert findrep.is_position_sup(5,4) == True
+    
+def test_is_position_sup2():
+    assert findrep.is_position_sup(4,5) == False
+    
+def test_is_position_inf():
+    assert findrep.is_position_inf(2,3) == True
+    
+def test_is_position_inf2():
+    assert findrep.is_position_inf(4,3) == False
+    
+    
 if __name__ == "__main__":
     pytest.main([os.path.basename(__file__)])
+#    test_is_position_sup()
+#    test_is_position_sup2()
+#    test_is_position_inf()
+#    test_is_position_inf2()
